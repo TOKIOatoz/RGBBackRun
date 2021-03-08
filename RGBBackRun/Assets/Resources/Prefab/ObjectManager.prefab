@@ -73,3 +73,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPosition: 3
+  distance: 4
+  nowRGB: {fileID: 6726751062830998238}
+  timer: {fileID: 5865310118743045711, guid: 0de82f7b3a4c52943ade8343422f0aa7, type: 3}

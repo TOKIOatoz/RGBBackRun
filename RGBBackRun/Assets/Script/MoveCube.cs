@@ -6,6 +6,7 @@ public class MoveCube : MonoBehaviour
 {
     private Vector3 speed = Vector3.zero;
     private Rigidbody thisRigidbody;
+    public float cubeStartTime;
     void Start()
     {
         thisRigidbody = this.GetComponent<Rigidbody>();
@@ -13,7 +14,8 @@ public class MoveCube : MonoBehaviour
 
     void FixedUpdate()
     {
-        speed.x = -5f - (Time.time / 10f);
+        speed.x = -5f - ((Time.time - cubeStartTime) / 10f);
+        Debug.Log(cubeStartTime);
         thisRigidbody.velocity = speed;
     }
 }
