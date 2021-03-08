@@ -27,6 +27,6 @@ public class NowRGB : MonoBehaviour
         {
             NowRGBFlag = 3;
         }
-        Debug.Log(nowRGBFlag);
+        //Debug.Log(nowRGBFlag);
     }
 }

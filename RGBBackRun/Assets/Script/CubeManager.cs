@@ -15,23 +15,30 @@ public class CubeManager : MonoBehaviour
     private GameObject cubeGreen;
     private GameObject cubeBlue;
     private GameObject cubeBlack;
+    public float nowTime;
+    public float startTime;
     public NowRGB nowRGB;
+    
     void Start()
     {
         cubeRed = Resources.Load<GameObject>("Prefab/CubeRed");
         cubeGreen = Resources.Load<GameObject>("Prefab/CubeGreen");
         cubeBlue = Resources.Load<GameObject>("Prefab/CubeBlue");
         cubeBlack = Resources.Load<GameObject>("Prefab/CubeBlack");
-        
-        AddCube(newCubeQuantity, beforeBlackCube, maxPosition);
+        startTime = Time.time;
+        nowTime = 0f;
+        pastTime = 0f;
+        AddCube(1, false, maxPosition);
     }
-    void FixedUpdate()
+    void Update()
     {
-        if ((Time.time - pastTime) * 5f + ((Time.time * Time.time - pastTime * pastTime) / 10f) > distance)
+        nowTime = Time.time - startTime;
+        Debug.Log(nowTime-pastTime);
+        if ((nowTime - pastTime) * 5f + ((nowTime * nowTime - pastTime * pastTime) / 10f) > distance)
         {
             DecisionQuantity();
             AddCube(newCubeQuantity, beforeBlackCube, maxPosition);
-            pastTime = Time.time;
+            pastTime = nowTime;
             Debug.Log(pastTime);
         }
     }
@@ -116,20 +123,24 @@ public class CubeManager : MonoBehaviour
             {
                 GameObject cloneCube = Instantiate (cubeRed, new Vector3(20f, PositionArray[i], 0), Quaternion.identity);
                 cloneCube.GetComponent<InitCubeRed>().getRGBFlag = nowRGB.NowRGBFlag;
+                cloneCube.GetComponent<MoveCube>().cubeStartTime = startTime;
             }
             else if (colorArray[i] == 2)
             {
                 GameObject cloneCube = Instantiate (cubeGreen, new Vector3(20f, PositionArray[i], 0), Quaternion.identity);
                 cloneCube.GetComponent<InitCubeGreen>().getRGBFlag = nowRGB.NowRGBFlag;
+                cloneCube.GetComponent<MoveCube>().cubeStartTime = startTime;
             }
             else if (colorArray[i] == 3)
             {
                 GameObject cloneCube = Instantiate (cubeBlue, new Vector3(20f, PositionArray[i], 0), Quaternion.identity);
                 cloneCube.GetComponent<InitCubeBlue>().getRGBFlag = nowRGB.NowRGBFlag;
+                cloneCube.GetComponent<MoveCube>().cubeStartTime = startTime;
             }
             else if (colorArray[i] == 4)
             {
-                Instantiate (cubeBlack, new Vector3(20f, PositionArray[i], 0), Quaternion.identity);
+                GameObject cloneCube = Instantiate (cubeBlack, new Vector3(20f, PositionArray[i], 0), Quaternion.identity);
+                cloneCube.GetComponent<MoveCube>().cubeStartTime = startTime;
             }
         }
     }
